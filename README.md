@@ -20,7 +20,7 @@ pip install streamlit langchain langchain_community langchain_groq faiss-cpu pyt
 2. Set Up API Keys
 Groq API Key is required. Store it in a .env file in the project directory:
 
-GROQ_API_KEY=your_api_key_here
+- GROQ_API_KEY=your_api_key_here
 Ensure the correct directory path is set for your PDFs.
 3. Run the Application
 Start the Streamlit app using:
