@@ -4,7 +4,6 @@ import time
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEmbeddings
-
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
@@ -12,7 +11,6 @@ from langchain.chains import create_retrieval_chain
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 
-# Load environment variables
 load_dotenv()
 groq_api_key = os.getenv("GROQ_API_KEY")
 
@@ -45,7 +43,6 @@ def create_vector_embedding(directory_path):
                 st.error(f"Directory `{directory_path}` does not exist.")
                 return
             
-            # Load PDF documents
             loader = PyPDFDirectoryLoader(directory_path)
             st.session_state.docs = loader.load()
             
@@ -53,20 +50,13 @@ def create_vector_embedding(directory_path):
                 st.error("No PDF files found in the directory.")
                 return
 
-            st.write(f"Loaded {len(st.session_state.docs)} documents.")
-
-            # Split into chunks
             text_splitter = RecursiveCharacterTextSplitter(chunk_size=1500, chunk_overlap=300)
-
             st.session_state.final_documents = text_splitter.split_documents(st.session_state.docs[:50])
 
             if not st.session_state.final_documents:
                 st.error("Failed to split documents.")
                 return
             
-            st.write(f"Split into {len(st.session_state.final_documents)} chunks.")
-
-            # Generate embeddings
             doc_texts = [doc.page_content for doc in st.session_state.final_documents]
             embeddings = st.session_state.embeddings.embed_documents(doc_texts)
 
@@ -74,16 +64,26 @@ def create_vector_embedding(directory_path):
                 st.error("Embeddings were not generated correctly.")
                 return
 
-            # Create FAISS vector store
             st.session_state.vectors = FAISS.from_documents(st.session_state.final_documents, st.session_state.embeddings)
             st.success("Vector database initialized successfully.")
 
         except Exception as e:
             st.error(f"Error during vector initialization: {e}")
 
+uploaded_files = st.file_uploader("Upload PDF files", type=["pdf"], accept_multiple_files=True)
 
-# User input for directory path
-directory_path = st.text_input("Enter the path to your PDF directory:", "Enter the path of the document in local system")
+directory_path = "/tmp/research_papers"
+
+if uploaded_files:
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)
+
+    for uploaded_file in uploaded_files:
+        file_path = os.path.join(directory_path, uploaded_file.name)
+        with open(file_path, "wb") as f:
+            f.write(uploaded_file.getbuffer())
+
+    st.success(f"Uploaded {len(uploaded_files)} file(s) successfully!")
 
 if st.button("Document Embedding"):
     create_vector_embedding(directory_path)
