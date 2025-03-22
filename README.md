@@ -28,14 +28,16 @@ Start the Streamlit app using:
 streamlit run app.py
 ```
 How to Use
-1️⃣ Upload PDFs: Place research papers in the specified directory.
-2️⃣ Embed Documents: Click "Document Embedding" to process and store document vectors.
-3️⃣ Ask Questions: Enter a query related to the research papers.
-4️⃣ View Results: The chatbot retrieves the most relevant response with document references.
+
+- Upload PDFs: Place research papers in the specified directory.
+- Embed Documents: Click "Document Embedding" to process and store document vectors.
+- Ask Questions: Enter a query related to the research papers.
+- View Results: The chatbot retrieves the most relevant response with document references.
 
 How It Works
-Load Research Papers 📄 → Extracts text from PDFs.
-Text Splitting ✂ → Breaks documents into chunks for better retrieval.
-Generate Embeddings 🧠 → Uses Ollama Embeddings (Gemma 2B model).
-Store in FAISS 📊 → Creates a vector database for similarity search.
-Query Processing ❓ → Uses retrieval and LLM inference to provide accurate answers.
+
+- Load Research Papers 📄 → Extracts text from PDFs.
+- Text Splitting ✂ → Breaks documents into chunks for better retrieval.
+- Generate Embeddings 🧠 → Uses Ollama Embeddings (Gemma 2B model).
+- Store in FAISS 📊 → Creates a vector database for similarity search.
+- Query Processing ❓ → Uses retrieval and LLM inference to provide accurate answers.
