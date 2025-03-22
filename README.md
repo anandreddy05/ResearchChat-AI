@@ -1,43 +1,67 @@
-# ResearchChat AI
-## Overview
-ResearchChat AI is a Streamlit-based Q&A chatbot designed for querying research papers. It leverages LangChain, FAISS, and Groq's LLM (Gemma 2B) to extract relevant information from research documents efficiently. Users can input questions, and the chatbot retrieves the most relevant content using a Retrieval-Augmented Generation (RAG) approach.
+# Research Paper Q&A Chatbot (RAG-based Retrieval System)
+
+This project is a Retrieval-Augmented Generation (RAG)-based Q&A chatbot that extracts relevant answers from research papers. It utilizes LangChain, FAISS, Hugging Face embeddings, and Groq's LLaMA 3.3-70B model to provide accurate responses based on uploaded PDFs.
 
 ## Features
-- Load and Process PDFs: Reads multiple research papers from a directory.
--  Document Chunking: Splits PDFs into smaller text chunks for efficient retrieval.
--  FAISS-based Vector Store: Stores and retrieves document embeddings for similarity search.
--  LLM-powered Q&A: Uses Groq’s Gemma 2B to answer queries with context.
--  Fast Response Time: Measures query execution time for optimization.
--  Interactive UI: Built with Streamlit for an intuitive experience.
 
-Installation & Setup
-1. Install Dependencies
-Ensure you have Python installed, then install the required packages:
+- Upload & process PDF research papers
+- Convert text into vector embeddings (FAISS)
+- Retrieve relevant context using semantic search
+- Generate accurate responses using LLaMA 3.3-70B
+- Interactive UI with Streamlit
+
+## Installation
+
+Clone the repository
 
 ```bash
-pip install streamlit langchain langchain_community langchain_groq faiss-cpu python-dotenv
+git clone https://github.com/anandreddy05/ResearchChat-AI.git
+cd ResearchChatAI
 ```
-2. Set Up API Keys
-Groq API Key is required. Store it in a .env file in the project directory:
 
-- GROQ_API_KEY=your_api_key_here
-Ensure the correct directory path is set for your PDFs.
-3. Run the Application
-Start the Streamlit app using:
+## Set up a virtual environment (Optional but recommended)
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+## Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## Set up environment variables
+
+Create a .env file in the project root and add your Groq API Key:
+
+GROQ_API_KEY=your_groq_api_key
+
+## Run the Streamlit app
+
 ```bash
 streamlit run app.py
 ```
-How to Use
 
-- Upload PDFs: Place research papers in the specified directory.
-- Embed Documents: Click "Document Embedding" to process and store document vectors.
-- Ask Questions: Enter a query related to the research papers.
-- View Results: The chatbot retrieves the most relevant response with document references.
+## How It Works
 
-How It Works
+- Upload Research Papers: The app loads PDFs from a specified folder.
+- Text Preprocessing: Splits documents into chunks using RecursiveCharacterTextSplitter.
+- Vector Embedding Creation: Uses BAAI/bge-small-en embeddings for semantic similarity.
+- Search & Retrieval: Uses FAISS vector search to find relevant document chunks.
+- Answer Generation: Queries LLaMA 3.3-70B for a detailed response.
 
-- Load Research Papers 📄 → Extracts text from PDFs.
-- Text Splitting ✂ → Breaks documents into chunks for better retrieval.
-- Generate Embeddings 🧠 → Uses Ollama Embeddings (Gemma 2B model).
-- Store in FAISS 📊 → Creates a vector database for similarity search.
-- Query Processing ❓ → Uses retrieval and LLM inference to provide accurate answers.
+## Usage
+
+### Document Embedding Process
+
+- Enter the path to your PDF directory in the input box.
+- Click "Document Embedding" to process documents.
+- It will generate vector embeddings using FAISS.
+
+### Ask Questions
+
+- Enter a query related to the research papers.
+- The model retrieves relevant text & generates a detailed response.
+- Check the document similarity search section for context.
