@@ -2,7 +2,8 @@
 
 This project is a Retrieval-Augmented Generation (RAG)-based Q&A chatbot that extracts relevant answers from research papers. It utilizes LangChain, FAISS, Hugging Face embeddings, and Groq's LLaMA 3.3-70B model to provide accurate responses based on uploaded PDFs.
 
-## Live Running on [GitHub]([https://github.com "Visit GitHub"](https://researchchat-ai.streamlit.app/))
+## Live Running on [GitHub]([https://github.com](https://researchchat-ai.streamlit.app/))
+
 
 ## Features
 
